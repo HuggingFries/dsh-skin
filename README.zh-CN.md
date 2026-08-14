@@ -57,7 +57,11 @@ dsh plugin --profile web add github:HuggingFries/dsh-skin
 
 安装完成后重启 `dsh web`，打开插件设置分节并选择图片文件夹。
 
-后续更新：重跑同一条命令即可（会拉取仓库最新提交）。
+后续更新：重跑同一条命令即可（会拉取仓库最新提交）。卸载是对称命令，执行后重启：
+
+```sh
+dsh plugin --profile web remove dsh-skin
+```
 
 ### 备选：安装脚本
 

@@ -35,7 +35,30 @@ $enc = New-Object System.Text.UTF8Encoding($false)
 
 Write-Host "==> dsh-skin uninstaller" -ForegroundColor Cyan
 
-# ── 1. remove the package ─────────────────────────────────────────────────────
+# ── 0. preferred path: official `dsh plugin` command ──────────────────────────
+$dsh = Get-Command dsh -ErrorAction SilentlyContinue
+if ($dsh) {
+    $npmrcPath = Join-Path $DshHome "profiles\$Profile\.npmrc"
+    if (Test-Path $npmrcPath) {
+        $npmrc = Get-Content $npmrcPath -Raw
+    } else {
+        $npmrc = ''
+    }
+    if ($npmrc -notmatch 'ignore-workspace-root-check') {
+        New-Item -ItemType Directory -Force -Path (Split-Path $npmrcPath) | Out-Null
+        Add-Content -Path $npmrcPath -Value "ignore-workspace-root-check=true"
+        Write-Host "    enabled workspace-root installs via $npmrcPath"
+    }
+    Write-Host "    using official 'dsh plugin --profile $Profile remove $pkg' ..."
+    dsh plugin --profile $Profile remove $pkg
+    if ($LASTEXITCODE -eq 0) {
+        Write-Host "==> Done. Restart 'dsh web' to apply." -ForegroundColor Green
+        exit 0
+    }
+    Write-Host "    'dsh plugin remove' failed; falling back to manual cleanup." -ForegroundColor Yellow
+}
+
+# ── 1. remove the package directory (manual fallback) ─────────────────────────
 if (Test-Path $target) {
     if (-not $Force) {
         $ans = Read-Host "    Remove '$target'? [y/N]"
@@ -106,6 +129,25 @@ if ($removed) {
     Write-Host "    registration removed from cordis.patch.yml."
 } else {
     Write-Host "    no dsh-skin registration found in cordis.patch.yml." -ForegroundColor Yellow
+}
+
+# ── 3. strip the dependency and bundle entry from package.json (official installs) ──
+$manifest = Join-Path $DshHome "profiles\$Profile\package.json"
+if (Test-Path $manifest) {
+    $pkgJson = [System.IO.File]::ReadAllText($manifest, $enc) | ConvertFrom-Json
+    $changed = $false
+    if ($pkgJson.dependencies -and $pkgJson.dependencies.PSObject.Properties['dsh-skin']) {
+        $pkgJson.dependencies.PSObject.Properties.Remove('dsh-skin')
+        $changed = $true
+    }
+    if ($pkgJson.dsh -and $pkgJson.dsh.profile -and $pkgJson.dsh.profile.bundles -contains $pkg) {
+        $pkgJson.dsh.profile.bundles = @($pkgJson.dsh.profile.bundles | Where-Object { $_ -ne $pkg })
+        $changed = $true
+    }
+    if ($changed) {
+        [System.IO.File]::WriteAllText($manifest, ($pkgJson | ConvertTo-Json -Depth 6), $enc)
+        Write-Host "    dependency and bundle entry removed from package.json."
+    }
 }
 
 Write-Host "==> Done. Restart 'dsh web' to apply." -ForegroundColor Green

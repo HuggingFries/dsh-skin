@@ -44,6 +44,8 @@ npx -p @deepseek-ai/dsh dsh plugin --profile web add github:HuggingFries/dsh-ski
 .\uninstall.ps1
 ```
 
+（脚本优先调用官方 `dsh plugin remove`，失败自动回退手动清理。）
+
 常用参数：`-DshHome <目录>`（非默认安装位置时）、`-Force`（免确认覆盖）。
 
 ### 手动安装
@@ -86,6 +88,12 @@ npx -p @deepseek-ai/dsh dsh plugin --profile web add github:HuggingFries/dsh-ski
 
 ## 卸载
 
-1. 删除 `%USERPROFILE%\.dsh\profiles\web\node_modules\dsh-skin`
-2. 把 `cordis.patch.yml` 中的 `- insert:` 段删除（恢复为 `[]`）
-3. 重启 dsh
+官方方式（与安装对称，一条命令）：
+
+```sh
+dsh plugin --profile web remove dsh-skin
+```
+
+该命令移除依赖、把插件从 bundles 层摘除、清理 node_modules——`dsh plugin` 的调和逻辑对增删都生效。完成后**重启 dsh**。
+
+或者运行仓库里的 `.\uninstall.ps1`（优先调用官方命令，失败自动回退手动清理：删除包目录、`cordis.patch.yml` 注册块、`package.json` 的依赖与 bundles 条目）。

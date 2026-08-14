@@ -55,7 +55,11 @@ The command installs the package with pnpm and automatically enables it by addin
 
 After installation, restart `dsh web`, open the plugin's settings section, and select an image folder.
 
-To update the plugin later, run the same install command again (it fetches the latest commit from the repository).
+To update the plugin later, run the same install command again (it fetches the latest commit from the repository). To uninstall, run the symmetric command and restart:
+
+```sh
+dsh plugin --profile web remove dsh-skin
+```
 
 ### Alternative: install script
 
