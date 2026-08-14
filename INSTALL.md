@@ -1,7 +1,7 @@
 # 设置背景 (◕‿◕) — 插件安装说明
 
 一个给 DSH Web 界面加本地图片背景 + 收藏夹 + 主题系统的插件。
-本包为**自包含**版本：`anime-bg/` 目录即全部代码，无外部依赖（仅 Windows 自带 PowerShell 用于缩略图）。
+本包为**自包含**版本：`dsh-skin/` 目录即全部代码，无外部依赖（仅 Windows 自带 PowerShell 用于缩略图）。
 
 ## 安装（目标机器）
 
@@ -11,11 +11,11 @@
 
 ### 步骤
 
-1. **复制包**：把 `anime-bg` 整个文件夹复制到：
+1. **复制包**：把 `dsh-skin` 整个文件夹复制到：
    ```
-   %USERPROFILE%\.dsh\profiles\web\node_modules\anime-bg
+   %USERPROFILE%\.dsh\profiles\web\node_modules\dsh-skin
    ```
-   （即 `C:\Users\<你的用户名>\.dsh\profiles\web\node_modules\anime-bg`；若 `node_modules` 目录不存在则新建）
+   （即 `C:\Users\<你的用户名>\.dsh\profiles\web\node_modules\dsh-skin`；若 `node_modules` 目录不存在则新建）
 
 2. **注册插件**：打开文件 `%USERPROFILE%\.dsh\profiles\web\cordis.patch.yml`，把内容替换为：
    ```yaml
@@ -23,10 +23,10 @@
    # a top-level YAML array of loader patch entries (id-targeted config
    # overrides, disables, and insert lists; `!!js` expressions allowed).
 
-   # 设置背景 (◕‿◕) — anime-bg
+   # 设置背景 (◕‿◕) — dsh-skin
    - insert:
-       - id: anime-bg
-         name: 'anime-bg'
+       - id: dsh-skin
+         name: 'dsh-skin'
          inject: [webServer, fs]
    ```
    （如果该文件已有其他内容，把最后的 `- insert:` 段追加进去即可，不要覆盖原有条目）
@@ -40,7 +40,7 @@
 
 ## 可选：迁移个人数据
 
-把旧机器的 `C:\Users\zxy\.anime-bg-state.json`（收藏夹、主题、每图设置）复制到新机器**启动 dsh 的目录**下（状态文件按 dsh 进程启动目录解析；不确定的话，先启动一次 dsh、在设置里随便改个值，再看新机器上生成了哪个 `.anime-bg-state.json`，用同目录覆盖即可）。
+把旧机器的 `C:\Users\zxy\.dsh-skin-state.json`（收藏夹、主题、每图设置）复制到新机器**启动 dsh 的目录**下（状态文件按 dsh 进程启动目录解析；不确定的话，先启动一次 dsh、在设置里随便改个值，再看新机器上生成了哪个 `.dsh-skin-state.json`，用同目录覆盖即可）。
 
 ## 版本兼容性
 
@@ -49,6 +49,6 @@
 
 ## 卸载
 
-1. 删除 `%USERPROFILE%\.dsh\profiles\web\node_modules\anime-bg`
+1. 删除 `%USERPROFILE%\.dsh\profiles\web\node_modules\dsh-skin`
 2. 把 `cordis.patch.yml` 中的 `- insert:` 段删除（恢复为 `[]`）
 3. 重启 dsh

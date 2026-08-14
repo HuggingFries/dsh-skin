@@ -1,8 +1,9 @@
-# 设置背景 (◕‿◕)
+# DSH Skin (◕‿◕)
 
-一个给 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) Web 界面的本地图片背景插件。
+为 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) Web 界面打造的外观定制插件：
+**本地图片背景 · 主题系统 · 对话可读性 · 收藏夹轮播**——不只是换背景，整套界面观感都由你掌控。
 
-在聊天区设置本地图片背景，支持收藏夹、主题系统、逐图个性化调节——所有设置跨刷新、跨重启持久化。
+所有设置跨刷新、跨重启持久化。
 
 ## 功能
 
@@ -25,7 +26,7 @@
 ## 注意
 
 - 部分 UI 样式依赖当前前端构建的哈希类名（如 `.o3BgMG_*`、`.pI_x6G_*`），跨 dsh 版本可能失效——不影响背景/主题主功能。
-- 状态文件按 dsh 进程启动目录解析（`.anime-bg-state.json`）。
+- 状态文件按 dsh 进程启动目录解析（`.dsh-skin-state.json`）。
 
 ## 许可证
 

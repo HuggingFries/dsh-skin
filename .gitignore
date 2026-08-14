@@ -1,6 +1,6 @@
 # 个人状态/缓存（不进仓库）
-.anime-bg-state.json
-.anime-bg-thumbs/
+.dsh-skin-state.json
+.dsh-skin-thumbs/
 
 # Node
 node_modules/
