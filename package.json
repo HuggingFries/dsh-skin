@@ -1,6 +1,6 @@
 {
   "name": "dsh-skin",
-  "description": "设置背景 (◕‿◕)：本地图片背景、收藏夹、主题系统（永久版）",
+  "description": "Visual customization plugin for the DeepSeek Harness web interface: wallpapers, themes, readability, and favorites slideshow",
   "version": "1.0.0",
   "type": "module",
   "main": "lib/index.js",

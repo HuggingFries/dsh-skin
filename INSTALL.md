@@ -1,4 +1,4 @@
-# 设置背景 (◕‿◕) — 插件安装说明
+# dsh-skin — 插件安装说明
 
 一个给 DSH Web 界面加本地图片背景 + 收藏夹 + 主题系统的插件。
 本包为**自包含**版本：`dsh-skin/` 目录即全部代码，无外部依赖（仅 Windows 自带 PowerShell 用于缩略图）。
@@ -6,7 +6,7 @@
 ## 安装（目标机器）
 
 ### 前提
-- Windows + 已安装 DSH（推荐与作者相同的版本 `0.1.0-rc.6`，见下方"版本兼容性"）
+- Windows + 已安装 DSH（推荐与发布时相同的版本 `0.1.0-rc.6`，见下方"版本兼容性"）
 - 图片目录：准备一个存放背景图的文件夹（任意位置）
 
 ### 步骤
@@ -23,7 +23,7 @@
    # a top-level YAML array of loader patch entries (id-targeted config
    # overrides, disables, and insert lists; `!!js` expressions allowed).
 
-   # 设置背景 (◕‿◕) — dsh-skin
+   # dsh-skin — 外观定制插件
    - insert:
        - id: dsh-skin
          name: 'dsh-skin'
