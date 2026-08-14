@@ -1,5 +1,7 @@
 # DSH Skin
 
+English | [中文](README.zh-CN.md)
+
 A visual customization plugin for the [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) web interface. It provides localized wallpaper backgrounds, theme management, conversation readability controls, and a favorites-based slideshow for the chat area — with all settings persisted across page refreshes and process restarts.
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
