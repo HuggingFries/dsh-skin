@@ -35,35 +35,37 @@
 
 - Windows
 - 已运行的 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) Web profile（版本要求见[兼容性](#兼容性)）
+- Git（仅下方 GitHub 安装方式需要）
 
-### 步骤
+### 官方安装（推荐）
 
-1. 将 `dsh-skin` 包目录复制到 web profile：
+dsh-skin 按 DSH 官方 bundle 规范打包，使用官方 CLI 一行安装：
 
-   ```
-   %USERPROFILE%\.dsh\profiles\web\node_modules\dsh-skin
-   ```
+```sh
+dsh plugin --profile web add github:HuggingFries/dsh-skin
+```
 
-   （如 `node_modules` 目录不存在则先创建。）
+该命令通过 pnpm 安装包，并根据包内 `dsh.bundle` 声明自动将其并入 profile 的 bundles 层、启用插件。
 
-2. 在 `%USERPROFILE%\.dsh\profiles\web\cordis.patch.yml` 中注册插件：
+> **dsh `0.1.0-rc.6` 的一次性前置**：该版本的 `dsh plugin` 仅是 pnpm 转发器，而 profile 是 pnpm workspace 根，直接 `add` 会被 pnpm 拒绝。在 profile 目录（`%USERPROFILE%\.dsh\profiles\web\.npmrc`）添加一行：
+>
+> ```ini
+> ignore-workspace-root-check=true
+> ```
+>
+> 之后运行安装命令即可。
 
-   ```yaml
-   - insert:
-       - id: dsh-skin
-         name: 'dsh-skin'
-         inject: [webServer, fs]
-   ```
+安装完成后重启 `dsh web`，打开插件设置分节并选择图片文件夹。
 
-   如文件已有其他条目，将 `- insert:` 块追加到末尾。
+后续更新：重跑同一条命令即可（会拉取仓库最新提交）。
 
-3. 重启 `dsh web`。
+### 备选：安装脚本
 
-4. 打开插件设置分节，选择图片文件夹。
+在仓库根目录运行 `.\install.ps1`——优先调用官方 `dsh plugin` 命令（自动写入上述 `.npmrc` 前置），CLI 不可用时自动回退到手动复制+注册。幂等，可重复运行。卸载运行 `.\uninstall.ps1`。
 
-**快速安装** — 在仓库根目录运行 `.\install.ps1`（自动复制包并幂等写入注册行），然后重启 `dsh web`。卸载运行 `.\uninstall.ps1`。
+### 手动安装
 
-完整指引（含数据迁移与排障）见 [INSTALL.md](INSTALL.md)。
+手动复制与注册的逐步说明、数据迁移与排障见 [INSTALL.md](INSTALL.md)。
 
 ## 使用
 

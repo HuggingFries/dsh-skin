@@ -35,35 +35,35 @@ A visual customization plugin for the [DeepSeek Harness](https://github.com/deep
 
 - Windows
 - A running [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) web profile (see [Compatibility](#compatibility) for version notes)
+- Git (only for the GitHub-hosted install below)
 
-### Steps
+### Official install (recommended)
 
-1. Copy the `dsh-skin` package directory into the web profile:
+dsh-skin is packaged as a standard DSH bundle. Install it with the official CLI:
 
-   ```
-   %USERPROFILE%\.dsh\profiles\web\node_modules\dsh-skin
-   ```
+```sh
+dsh plugin --profile web add github:HuggingFries/dsh-skin
+```
 
-   (Create the `node_modules` directory if it does not exist.)
+The command installs the package with pnpm and automatically enables it by adding the `dsh.bundle` declaration to the profile's bundles layer.
 
-2. Register the plugin in `%USERPROFILE%\.dsh\profiles\web\cordis.patch.yml`:
+> **One-time prerequisite for dsh `0.1.0-rc.6`**: this version's `dsh plugin` simply forwards to pnpm, which refuses to add dependencies at the workspace root. Add a `.npmrc` file to the profile directory (`%USERPROFILE%\.dsh\profiles\web\.npmrc`) with the following line, then run the install command:
+>
+> ```ini
+> ignore-workspace-root-check=true
+> ```
 
-   ```yaml
-   - insert:
-       - id: dsh-skin
-         name: 'dsh-skin'
-         inject: [webServer, fs]
-   ```
+After installation, restart `dsh web`, open the plugin's settings section, and select an image folder.
 
-   Append the `- insert:` block if the file already contains other entries.
+To update the plugin later, run the same install command again (it fetches the latest commit from the repository).
 
-3. Restart `dsh web`.
+### Alternative: install script
 
-4. Open the plugin's settings section and select an image folder.
+From the repository root, run `.\install.ps1` — it tries the official `dsh plugin` command first (writing the `.npmrc` prerequisite automatically) and falls back to a manual copy-and-register install when the CLI is unavailable. Idempotent, safe to re-run. Uninstall with `.\uninstall.ps1`.
 
-**Quick install** — from the repository root, run `.\install.ps1` (copies the package and registers the plugin idempotently), then restart `dsh web`. Uninstall with `.\uninstall.ps1`.
+### Manual install
 
-See [INSTALL.md](INSTALL.md) for the full walkthrough, including data migration and troubleshooting.
+See [INSTALL.md](INSTALL.md) for the step-by-step manual method, data migration, and troubleshooting.
 
 ## Usage
 
