@@ -61,6 +61,8 @@ A visual customization plugin for the [DeepSeek Harness](https://github.com/deep
 
 4. Open the plugin's settings section and select an image folder.
 
+**Quick install** — from the repository root, run `.\install.ps1` (copies the package and registers the plugin idempotently), then restart `dsh web`. Uninstall with `.\uninstall.ps1`.
+
 See [INSTALL.md](INSTALL.md) for the full walkthrough, including data migration and troubleshooting.
 
 ## Usage
