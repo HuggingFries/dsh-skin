@@ -98,9 +98,13 @@ Open **Settings** in the harness sidebar and locate the plugin section. From the
 
 ## Uninstall
 
-1. Remove `%USERPROFILE%\.dsh\profiles\web\node_modules\dsh-skin`.
-2. Remove the `- insert:` block from `cordis.patch.yml`.
-3. Restart `dsh web`.
+Remove the plugin with the official CLI and restart:
+
+```sh
+dsh plugin --profile web remove dsh-skin
+```
+
+The command removes the dependency, drops the plugin from the profile's bundles layer, and cleans up `node_modules`. Alternatively, run `.\uninstall.ps1` from the repository root.
 
 ## License
 

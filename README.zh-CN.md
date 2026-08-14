@@ -100,9 +100,13 @@ dsh plugin --profile web remove dsh-skin
 
 ## 卸载
 
-1. 删除 `%USERPROFILE%\.dsh\profiles\web\node_modules\dsh-skin`。
-2. 从 `cordis.patch.yml` 移除 `- insert:` 块。
-3. 重启 `dsh web`。
+使用官方 CLI 移除插件并重启：
+
+```sh
+dsh plugin --profile web remove dsh-skin
+```
+
+该命令会移除依赖、将插件从 profile 的 bundles 层摘除并清理 `node_modules`。也可以在仓库根目录运行 `.\uninstall.ps1`。
 
 ## 许可证
 
