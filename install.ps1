@@ -46,6 +46,18 @@ if (-not (Test-Path (Join-Path $src 'package.json'))) {
 # ── 0. preferred path: official `dsh plugin` command (bundle install) ─────────
 $dsh = Get-Command dsh -ErrorAction SilentlyContinue
 if ($dsh) {
+    # dsh rc.6 forwards to pnpm, which refuses workspace-root adds unless allowed
+    $npmrcPath = Join-Path $DshHome "profiles\$Profile\.npmrc"
+    New-Item -ItemType Directory -Force -Path (Split-Path $npmrcPath) | Out-Null
+    if (Test-Path $npmrcPath) {
+        $npmrc = Get-Content $npmrcPath -Raw
+    } else {
+        $npmrc = ''
+    }
+    if ($npmrc -notmatch 'ignore-workspace-root-check') {
+        Add-Content -Path $npmrcPath -Value "ignore-workspace-root-check=true"
+        Write-Host "    enabled workspace-root installs via $npmrcPath"
+    }
     Write-Host "    using official 'dsh plugin --profile $Profile add <repo> ...'"
     dsh plugin --profile $Profile add $src
     if ($LASTEXITCODE -eq 0) {

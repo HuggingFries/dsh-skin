@@ -14,11 +14,19 @@
 插件按 DSH 官方 bundle 规范打包（包内自带 `cordis.patch.yml` 注册行 + `dsh.bundle` 声明），使用官方 CLI 安装：
 
 ```sh
-# 本地仓库路径安装（发布到 npm 后换成包名）
-npx -p @deepseek-ai/dsh dsh plugin --profile web add <仓库路径或npm包名>
+# 从 GitHub 仓库安装（发布到 npm 后把地址换成包名）
+npx -p @deepseek-ai/dsh dsh plugin --profile web add github:HuggingFries/dsh-skin
 ```
 
-`dsh plugin` 负责 pnpm 安装、将插件并入 profile 的 bundles 层并自动启用。完成后**重启 `dsh web`**。
+`dsh plugin` 会 pnpm 安装包、把 `dsh.bundle` 声明自动并入 profile 的 bundles 层并启用插件。完成后**重启 `dsh web`**。
+
+> **一次性前置（dsh rc.6）**：当前官方 dsh 版本（`0.1.0-rc.6`）的 `dsh plugin` 只是 pnpm 转发器，而 profile 是 pnpm workspace 根，直接 `add` 会被 pnpm 拒绝。在 profile 目录放一个 `.npmrc`（一行）即可：
+>
+> ```ini
+> ignore-workspace-root-check=true
+> ```
+>
+> 之后所有 `dsh plugin add/remove` 都正常。未来版本若修复了转发行为，此步可省略。
 
 ### 快速安装（脚本方式）
 
