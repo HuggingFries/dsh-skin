@@ -1,7 +1,7 @@
 {
   "name": "dsh-skin",
   "description": "Visual customization plugin for the DeepSeek Harness web interface: wallpapers, themes, readability, and favorites slideshow",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
