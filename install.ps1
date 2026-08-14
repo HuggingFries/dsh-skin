@@ -43,6 +43,18 @@ if (-not (Test-Path (Join-Path $src 'package.json'))) {
     throw "package.json not found next to this script. Run install.ps1 from the repository root."
 }
 
+# ── 0. preferred path: official `dsh plugin` command (bundle install) ─────────
+$dsh = Get-Command dsh -ErrorAction SilentlyContinue
+if ($dsh) {
+    Write-Host "    using official 'dsh plugin --profile $Profile add <repo> ...'"
+    dsh plugin --profile $Profile add $src
+    if ($LASTEXITCODE -eq 0) {
+        Write-Host "==> Done. Restart 'dsh web' to load the plugin." -ForegroundColor Green
+        exit 0
+    }
+    Write-Host "    'dsh plugin add' failed (missing pnpm or profile?); falling back to manual install." -ForegroundColor Yellow
+}
+
 # ── 1. copy the package (idempotent) ──────────────────────────────────────────
 if (Test-Path $target) {
     if (-not $Force) {

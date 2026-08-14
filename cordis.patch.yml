@@ -1,0 +1,6 @@
+# dsh-skin bundle patch: inserts the plugin row into the host composition.
+# Installed via `dsh plugin --profile <name> add <package-or-path>`.
+- insert:
+    - id: dsh-skin
+      name: 'dsh-skin'
+      inject: [webServer, fs]

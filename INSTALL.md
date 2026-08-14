@@ -9,7 +9,18 @@
 - Windows + 已安装 DSH（推荐与发布时相同的版本 `0.1.0-rc.6`，见下方"版本兼容性"）
 - 图片目录：准备一个存放背景图的文件夹（任意位置）
 
-### 快速安装（推荐，脚本方式）
+### 官方方式（推荐）
+
+插件按 DSH 官方 bundle 规范打包（包内自带 `cordis.patch.yml` 注册行 + `dsh.bundle` 声明），使用官方 CLI 安装：
+
+```sh
+# 本地仓库路径安装（发布到 npm 后换成包名）
+npx -p @deepseek-ai/dsh dsh plugin --profile web add <仓库路径或npm包名>
+```
+
+`dsh plugin` 负责 pnpm 安装、将插件并入 profile 的 bundles 层并自动启用。完成后**重启 `dsh web`**。
+
+### 快速安装（脚本方式）
 
 在仓库根目录（与 `install.ps1` 同目录）运行：
 
@@ -17,7 +28,7 @@
 .\install.ps1
 ```
 
-脚本自动完成：复制插件到 profile 的 `node_modules`、幂等写入 `cordis.patch.yml` 注册行（重复运行安全）。完成后**重启 `dsh web`**。
+脚本优先调用官方 `dsh plugin add`；若 dsh/pnpm 不可用则自动回退到手动复制 + 幂等写入注册行（重复运行安全）。完成后**重启 `dsh web`**。
 
 卸载：
 
