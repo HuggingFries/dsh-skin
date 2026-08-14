@@ -29,5 +29,8 @@
       "immediately": true
     }
   },
+  "dependencies": {
+    "sharp": "^0.35.3"
+  },
   "license": "MIT"
 }
