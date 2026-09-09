@@ -35,6 +35,11 @@ const ROLE_TABLE = [
   { role: 'column', module: 'ChatView', file: 'dsh-client-ui-chat', key: 'column' },
   // 运行状态行(渐变文字,需 drop-shadow 而非 text-shadow)
   { role: 'turnStatus', module: 'ChatView', file: 'dsh-client-ui-chat', key: 'turnStatus' },
+  // 三列外壳布局(壁纸锚点与设置预览依赖;rc.1 未变,仍为 pI_x6G_*)
+  { role: 'centerCol', module: 'AppFrame', file: 'dsh-client-ui-layout', key: 'centerCol' },
+  { role: 'frame', module: 'AppFrame', file: 'dsh-client-ui-layout', key: 'frame' },
+  { role: 'sidebar', module: 'AppFrame', file: 'dsh-client-ui-layout', key: 'sidebarCol' },
+  { role: 'details', module: 'AppFrame', file: 'dsh-client-ui-layout', key: 'detailsCol' },
 ]
 
 function fail(message) {
