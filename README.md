@@ -109,3 +109,15 @@ The command removes the dependency, drops the plugin from the profile's bundles 
 ## License
 
 [MIT](LICENSE) © 2026 HuggingFries
+
+## dsh 升级适配
+
+dsh 客户端每发布新版,CSS Modules 哈希类名就可能变化,皮肤针对气泡等结构的样式会失效。本仓库已内置适配机制:
+
+1. 升级 dsh 后运行一次:
+``sh
+node tools/adapt.mjs <dsh安装目录>
+``n2. 工具按角色表(模块+语义键)自动从已安装的 dsh 客户端 bundle 采集新哈希,重写 lib/client.js 中的 ADAPT 常量;
+3. 提交推送后重新安装皮肤并重启 dsh web。
+
+皮肤运行时还会做兼容探针:若页面中长时间找不到适配类,控制台会提示重新运行该工具,避免无声失效。
