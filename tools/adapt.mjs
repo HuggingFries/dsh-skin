@@ -31,6 +31,10 @@ const ROLE_TABLE = [
   // 消息时间戳
   { role: 'timeStart', module: 'MessageIconActions', file: 'dsh-client-ui-chat', key: 'timeStart' },
   { role: 'timeEnd', module: 'MessageIconActions', file: 'dsh-client-ui-chat', key: 'timeEnd' },
+  // 聊天消息列(全局可读性文字阴影挂载点,等价旧版 centerCol)
+  { role: 'column', module: 'ChatView', file: 'dsh-client-ui-chat', key: 'column' },
+  // 运行状态行(渐变文字,需 drop-shadow 而非 text-shadow)
+  { role: 'turnStatus', module: 'ChatView', file: 'dsh-client-ui-chat', key: 'turnStatus' },
 ]
 
 function fail(message) {
@@ -86,7 +90,7 @@ function rewriteAdaptConstant(values) {
   const end = source.indexOf('// ::ADAPT-END::')
   if (start < 0 || end < 0) fail('client.js 缺少 ::ADAPT-BEGIN:: / ::ADAPT-END:: 标记')
   const head = source.slice(0, start)
-  const tail = source.slice(end)
+  const tail = source.slice(end + '// ::ADAPT-END::'.length)
   const block = [
     '// ::ADAPT-BEGIN::',
     '    const ADAPT = {',
